@@ -211,21 +211,21 @@ RSpec.describe RailsCursorPagination::Paginator do
     let(:cursor_object_by_author) { nil }
     let(:cursor_object_by_author_desc) { nil }
     let(:query_cursor_base) { cursor_object&.id }
-    let(:query_cursor) { Base64.strict_encode64(query_cursor_base.to_json) }
+    let(:query_cursor) { Base64.urlsafe_encode64(query_cursor_base.to_json, padding: false) }
     let(:order_by_column) { nil }
 
     shared_examples_for 'a properly returned response' do
       let(:expected_start_cursor) do
         if expected_posts.any?
-          Base64.strict_encode64(
-            expected_cursor.call(expected_posts.first).to_json
+          Base64.urlsafe_encode64(
+            expected_cursor.call(expected_posts.first).to_json, padding: false
           )
         end
       end
       let(:expected_end_cursor) do
         if expected_posts.any?
-          Base64.strict_encode64(
-            expected_cursor.call(expected_posts.last).to_json
+          Base64.urlsafe_encode64(
+            expected_cursor.call(expected_posts.last).to_json, padding: false
           )
         end
       end
@@ -261,7 +261,7 @@ RSpec.describe RailsCursorPagination::Paginator do
         let(:returned_parsed_cursors) do
           subject
             .pluck(:cursor)
-            .map { |cursor| JSON.parse(Base64.strict_decode64(cursor)) }
+            .map { |cursor| JSON.parse(Base64.urlsafe_decode64(cursor)) }
         end
 
         it 'contains the right data' do

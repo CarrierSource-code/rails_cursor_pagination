@@ -33,7 +33,7 @@ module RailsCursorPagination
       #   column
       # @return [RailsCursorPagination::Cursor]
       def decode(encoded_string:, order_field: :id)
-        decoded = JSON.parse(Base64.strict_decode64(encoded_string))
+        decoded = JSON.parse(Base64.urlsafe_decode64(encoded_string))
         if order_field == :id
           if decoded.is_a?(Array)
             raise InvalidCursorError,
@@ -93,7 +93,7 @@ module RailsCursorPagination
         else
           @id
         end
-      Base64.strict_encode64(unencoded_cursor.to_json)
+      Base64.urlsafe_encode64(unencoded_cursor.to_json, padding: false)
     end
 
     private

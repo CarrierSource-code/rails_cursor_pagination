@@ -25,7 +25,6 @@ GEM
       concurrent-ruby (~> 1.0)
     json (2.6.2)
     minitest (5.15.0)
-    mysql2 (0.5.4)
     parallel (1.22.1)
     parser (3.1.2.0)
       ast (~> 2.4.1)
@@ -69,7 +68,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  mysql2 (~> 0.5)
   pg (~> 1.4)
   rails_cursor_pagination!
   rake (~> 13.0)
@@ -77,4 +75,4 @@ DEPENDENCIES
   rubocop (~> 1.31)
 
 BUNDLED WITH
-   2.1.4
+   2.4.13
